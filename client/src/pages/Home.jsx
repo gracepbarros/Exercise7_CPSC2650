@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Home() {
   const [notes, setNotes] = useState([]);
@@ -25,17 +26,19 @@ function Home() {
   };
 
   return (
-    <div>
-      <h1>Home</h1>
+    <div className="main">
+      <h1>YANT</h1>
       <input value={newNote} onChange={e => setNewNote(e.target.value)} />
-      <button onClick={handleAdd}>Add Note</button>
-      <ul>
+      <ul className="notes">
         {notes.map(note => (
           <li key={note.id}>
-            {note.text}
+            <Link to={`/note/${note.id}`}>{note.text}</Link> 
             <button onClick={() => handleDelete(note.id)}>Delete</button>
           </li>
         ))}
+        <li>
+        <button onClick={handleAdd}>Add a new Note</button>
+        </li>
       </ul>
     </div>
   );

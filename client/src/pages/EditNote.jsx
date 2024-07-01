@@ -26,7 +26,7 @@ function EditNote() {
 
   return (
     <div>
-      <h1>Edit Note</h1>
+      <p>Edit Note ID:  {id}</p>
       <input value={text} onChange={e => setText(e.target.value)} />
       <button onClick={handleSave}>Save</button>
       {image && (
