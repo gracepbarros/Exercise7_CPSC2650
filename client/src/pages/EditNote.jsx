@@ -12,8 +12,21 @@ function EditNote() {
       .then(response => response.json())
       .then(data => {
         setText(data.text);
-        setImage(data.image);
-      });
+        fetch(`http://localhost:3000/notes/${id}/image`)
+          .then(response => response.json())
+          .then(imageData => {
+            setImage({
+              url: imageData.imageUrl,
+              author: imageData.authorName,
+              author_link: imageData.authorLink
+            });
+            console.log('Image data:', imageData); 
+          })
+          .catch(error => {
+            console.error('Error fetching image data:', error);
+            setImage(null);
+          });
+      })
   }, [id]);
 
   const handleSave = () => {
@@ -26,7 +39,7 @@ function EditNote() {
 
   return (
     <div>
-      <p>Edit Note ID:  {id}</p>
+      <p>Edit Note ID: {id}</p>
       <input value={text} onChange={e => setText(e.target.value)} />
       <button onClick={handleSave}>Save</button>
       {image && (
